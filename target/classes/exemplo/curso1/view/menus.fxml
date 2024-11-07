@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exemplo.curso1.controller.MenusController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu text="Estudante">
+                    <items>
+                        <MenuItem fx:id="menuEstudanteInclui" onAction="#incluiOnAction" text="Inclui" />
+                        <MenuItem fx:id="menuEstudanteListaAltera" onAction="#listaAlteraOnAction" text="Lista/altera" />
+                        <MenuItem fx:id="menuEstudanteExclui" onAction="#excluiOnAction" text="Exclui" />
+                    </items>
+                </Menu>
+                <Menu text="Professor">
+                    <items>
+                        <MenuItem fx:id="menuProfessorInclui" onAction="#inclui1OnAction" text="Inclui" />
+                        <MenuItem fx:id="menuProfessorAltera" onAction="#listaAltera1OnAction" text="Lista/altera" />
+                        <MenuItem fx:id="menuProfessorExclui" onAction="#exclui1OnAction" text="Exclui" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ImageView fitHeight="374.0" fitWidth="600.0">
+            <image>
+                <Image url="@../image/UNICENTRO.jpg" />
+            </image>
+        </ImageView>
+    </children>
+</VBox>
