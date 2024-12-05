@@ -19,7 +19,7 @@ public class AlteraProfessorController {
     private TextField txtIdadEst;
 
     @FXML
-    private Button btnSalvar;
+    private Button btnConf;
 
     private Professor professor;
 
@@ -72,7 +72,7 @@ public class AlteraProfessorController {
     }
 
     private void fecharJanela() {
-        Stage stage = (Stage) btnSalvar.getScene().getWindow();
+        Stage stage = (Stage) btnConf.getScene().getWindow();
         stage.close();
     }
 }

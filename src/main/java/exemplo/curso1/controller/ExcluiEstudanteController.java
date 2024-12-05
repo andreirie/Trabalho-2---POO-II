@@ -31,20 +31,20 @@ public class ExcluiEstudanteController {
         try {
             int estId = Integer.parseInt(txtIDEst.getText());
             estudanteDAO.excluir(estId);
-            Alert alert;
-            alert = new Alert(AlertType.INFORMATION, "Você clicou no botão Confirmar", ButtonType.OK);
-            alert.setTitle("Estudante removido com sucesso!");
-            alert.setHeaderText("Informação");
-            alert.show();
+            mostrarAlerta("Estudante removido com sucesso!", "Você clicou no botão Confirmar");
         } catch (SQLException e1) {
-            Alert alert;
-            alert = new Alert(AlertType.INFORMATION, "Você clicou no botão Cancelar", ButtonType.OK);
-            alert.setTitle("Estudante não foi removido com sucesso!");
-            alert.setHeaderText("Informação");
-            alert.show();
+            mostrarAlerta("Estudante não foi removido com sucesso!", "Você clicou no botão Cancelar");
             e1.printStackTrace();
         }
     }
+
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(AlertType.INFORMATION, mensagem, ButtonType.OK);
+        alert.setTitle(titulo);
+        alert.setHeaderText("Informação");
+        alert.show();
+    }
+
 
     @FXML
     void btnVoltarOnAction(ActionEvent event) {

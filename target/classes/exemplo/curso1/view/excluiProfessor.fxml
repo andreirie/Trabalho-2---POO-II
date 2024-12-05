@@ -16,7 +16,7 @@
             </font>
         </Label>
         <Label fx:id="lblIDProfessor" />
-        <Label text="Numero da linha">
+        <Label text="ID do professor">
             <font>
                 <Font size="15.0" />
             </font>

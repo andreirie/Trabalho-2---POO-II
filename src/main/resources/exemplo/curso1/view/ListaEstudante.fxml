@@ -10,6 +10,7 @@
     <children>
         <TableView fx:id="tableEstudantes">
             <columns>
+                <TableColumn fx:id="colId" text="Id" />
                 <TableColumn fx:id="colNome" text="Nome" />
                 <TableColumn fx:id="colIdade" text="Idade" />
             </columns>

@@ -26,6 +26,9 @@ public class ListaEstudanteController {
     private TableView<Estudante> tableEstudantes;
 
     @FXML
+    private TableColumn<Estudante, Integer> colId;
+
+    @FXML
     private TableColumn<Estudante, String> colNome;
 
     @FXML
@@ -37,6 +40,7 @@ public class ListaEstudanteController {
     private EstudanteDAO estudanteDAO = new EstudanteDAO();
 
     public void initialize() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("estudanteID"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
 
