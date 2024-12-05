@@ -3,28 +3,39 @@ package exemplo.curso1.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import exemplo.curso1.model.*;
 
 public class ProfessorDAO implements IProfessor, IConst {
-    private String sql;
 
+    /* Refatoração 8
+   Autor: André
+   Uso de Replace Magic Numbers para criar constantes contendo as consultas SQL
+   Objetivo: deixar o código claro e melhorar manuteniblidade
+    */
+    private static final String INSERT_SQL = "INSERT INTO professor (nome, idade) VALUES (?, ?)";
+    private static final String UPDATE_SQL = "UPDATE professor SET nome = ?, idade = ? WHERE professor_id = ?";
+    private static final String SELECT_ALL_SQL = "SELECT * FROM professor";
+    private static final String DELETE_SQL = "DELETE FROM professor WHERE professor_id = ?";
+
+    // Método para obter a conexão com o banco
+    private Connection getConnection() throws SQLException {
+        return Conexao.getConexao(Conexao.stringDeConexao, Conexao.usuario, Conexao.senha);
+    }
+
+    // Método para inserir um professor
     public void inserir(Professor professor) throws SQLException {
-        sql = "INSERT INTO professor (nome,idade) VALUES (?,?)";
-
-        try (Connection conexao = Conexao.getConexao(Conexao.stringDeConexao, Conexao.usuario, Conexao.senha);
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+        try (Connection conexao = getConnection();
+             PreparedStatement pstmt = conexao.prepareStatement(INSERT_SQL)) {
             pstmt.setString(1, professor.getNome());
-            pstmt.setInt(2,professor.getIdade());
+            pstmt.setInt(2, professor.getIdade());
             pstmt.executeUpdate();
         }
     }
 
+    // Método para atualizar um professor
     public void atualizar(Professor professor) throws SQLException {
-        String sql = "UPDATE professor SET nome = ?, idade = ? WHERE professor_id = ?";
-
-        try (Connection conexao = Conexao.getConexao(Conexao.stringDeConexao, Conexao.usuario, Conexao.senha);
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+        try (Connection conexao = getConnection();
+             PreparedStatement pstmt = conexao.prepareStatement(UPDATE_SQL)) {
             pstmt.setString(1, professor.getNome());
             pstmt.setInt(2, professor.getIdade());
             pstmt.setInt(3, professor.getProfessorID());
@@ -32,14 +43,13 @@ public class ProfessorDAO implements IProfessor, IConst {
         }
     }
 
-
+    // Método para buscar todos os professores
     public List<Professor> buscarTodos() throws SQLException {
-        sql = "SELECT * FROM professor";
         List<Professor> professors = new ArrayList<>();
 
-        try (Connection conexao = Conexao.getConexao(Conexao.stringDeConexao, Conexao.usuario, Conexao.senha);
+        try (Connection conexao = getConnection();
              Statement stmt = conexao.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet rs = stmt.executeQuery(SELECT_ALL_SQL)) {
 
             while (rs.next()) {
                 Professor professor = new Professor();
@@ -52,16 +62,15 @@ public class ProfessorDAO implements IProfessor, IConst {
         return professors;
     }
 
+    // Método para excluir um professor
     public void excluir(int id) throws SQLException {
-        sql = "DELETE FROM professor WHERE professor_id = ?";
-
-        try (Connection conexao = Conexao.getConexao(Conexao.stringDeConexao, Conexao.usuario, Conexao.senha);
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+        try (Connection conexao = getConnection();
+             PreparedStatement pstmt = conexao.prepareStatement(DELETE_SQL)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Erro ao excluir o professor.", e);
         }
     }
-
 }
