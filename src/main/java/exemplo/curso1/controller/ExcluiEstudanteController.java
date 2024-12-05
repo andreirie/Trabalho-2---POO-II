@@ -22,6 +22,8 @@ public class ExcluiEstudanteController {
 
     private EstudanteDAO estudanteDAO = new EstudanteDAO();
 
+    private int estudanteId;
+
     @FXML
     public void initialize() {
     }
@@ -29,14 +31,20 @@ public class ExcluiEstudanteController {
     @FXML
     private void btnConfOnAction(ActionEvent event) {
         try {
-            int estId = Integer.parseInt(txtIDEst.getText());
-            estudanteDAO.excluir(estId);
+            estudanteId = getEstudanteId();
+            estudanteDAO.excluir(estudanteId);
             mostrarAlerta("Estudante removido com sucesso!", "Você clicou no botão Confirmar");
         } catch (SQLException e1) {
             mostrarAlerta("Estudante não foi removido com sucesso!", "Você clicou no botão Cancelar");
             e1.printStackTrace();
         }
     }
+
+
+    private int getEstudanteId() {
+        return Integer.parseInt(txtIDEst.getText());
+    }
+
 
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION, mensagem, ButtonType.OK);
@@ -47,10 +55,8 @@ public class ExcluiEstudanteController {
 
 
     @FXML
-    void btnVoltarOnAction(ActionEvent event) {
-        // Obtém o stageAtual (janela que será fechada)
-        Stage stageAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // Fecha o Stage atual
-        stageAtual.close();
+    private void btnVoltarOnAction(ActionEvent event) {
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
+
 }
